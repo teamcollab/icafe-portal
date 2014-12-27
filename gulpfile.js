@@ -6,13 +6,14 @@ var gulp = require("gulp");
 var nodemon = require("gulp-nodemon");
 var browserify = require("browserify");
 var concat = require("gulp-concat");
-var less = require("gulp-less");
 var minifyCSS = require('gulp-minify-css');
 var react = require("gulp-react");
 var sourcemaps = require("gulp-sourcemaps");
 var source = require("vinyl-source-stream");
 var envify = require("envify");
 var shim = require("browserify-shim");
+
+var compass = require('gulp-compass')
 
 // Config
 var config = require("./config/gulp");
@@ -41,7 +42,13 @@ gulp.task("copy-js", function () {
   .pipe(gulp.dest(paths.out.build_js));
 });
 
-gulp.task("app-compile", ["jsx-compile", "copy-js"], function() {
+gulp.task("copy-fonts", function () {
+  return gulp.src(paths.in.fonts)
+  .pipe(gulp.dest(paths.out.fonts));
+});
+
+
+gulp.task("app-bundle", ["jsx-compile", "copy-js", "copy-fonts"], function() {
   return browserify({
       entries: paths.in.app,
       debug: true,
@@ -50,26 +57,48 @@ gulp.task("app-compile", ["jsx-compile", "copy-js"], function() {
     .transform(shim)
     .transform(envify)
     .bundle()
-    .pipe(source("app.js"))
+    .pipe(source("bundle.js"))
     .pipe(gulp.dest(paths.out.public));
 });
 
-gulp.task("less-compile", function () {
-  return gulp.src(paths.in.less)
-    .pipe(sourcemaps.init())
-    .pipe(less())
-    .on("error", handleStreamError)
-    .pipe(concat("app.css"))
-    .pipe(minifyCSS())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.out.public));
+
+gulp.task("app-compile", ["app-bundle"], function() {
+  paths.in.bower_js.push("public/bundle.js");
+
+  gulp.src(paths.in.bower_js)
+  .pipe(concat('app.js'))
+  .pipe(gulp.dest(paths.out.public));
+
 });
 
-gulp.task("install", ["app-compile", "less-compile"]);
+// ==========
+// css / scss
+// ==========
+
+
+gulp.task('scss-compile', function () {
+  gulp.src(['src/client/scss/app.scss'])
+  .pipe(compass({
+    sass: 'src/client/scss',
+    image: 'src/client/img',
+    css: 'public',
+    import_path: ['bower_components/bootstrap-sass-official/vendor/assets/stylesheets']
+  }))
+  .pipe(gulp.dest('public'))
+  ;
+});
+
+gulp.task('watch-scss', ['compile-scss'], function () {
+  gulp.watch(['public/scss/*.scss'], ['compile-scss']);
+});
+
+
+
+gulp.task("install", ["app-compile", "scss-compile"]);
 
 gulp.task("watch", function () {
   gulp.watch(paths.in.jsx, ["app-compile"]);
-  gulp.watch(paths.in.less, ["less-compile"]);
+  gulp.watch(paths.in.scss, ["scss-compile"]);
   gulp.watch(paths.toWatch, ["nodemon"]);
 });
 

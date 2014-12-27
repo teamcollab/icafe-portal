@@ -8,35 +8,16 @@ var Link = reactNestedRouter.Link;
 
 var IndexPage = require('./pages/index');
 var NullPage = require('./pages/null');
+var MainPage = require('./pages/main');
 
-var container = document.getElementById('page-container');
-
-var App = React.createClass({
-  render: function () {
-    return (
-      <div className='row' >
-        <div className='col-md-2'>
-          <h3>Links</h3>
-          <ul className='nav nav-pills nav-stacked' >
-            <li><Link to='index'>Index</Link></li>
-            <li><Link to='null-page'>Null</Link></li>
-          </ul>
-        </div>
-        <div className='col-md-10 well'>
-          {this.props.activeRouteHandler()}
-        </div>
-      </div>
-    );
-  }
-});
-
-React.renderComponent(
+var appRoute =
   <Routes>
-    <Route handler={App} >
+    <Route handler={MainPage} >
       <Route name='index' path='/' handler={IndexPage} />
       <Route name='null-page' path='/null' handler={NullPage} />
     </Route>
   </Routes>
-, container);
 
 
+var container = document.getElementById('page-container');
+React.renderComponent(appRoute, container);

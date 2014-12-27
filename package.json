@@ -62,7 +62,9 @@
     "gulp-sourcemaps": "1.2.x",
     "mocha": "1.21.x",
     "should": "4.0.x",
-    "supertest": "0.14.x"
+    "supertest": "0.14.x",
+    "gulp-compass": "^2.0.3"
+
   },
   "browserify": {
     "transform": [

@@ -1,25 +1,21 @@
-doctype html
-html
-  head
-    title React Koa Gulp Mongoose Mocha Demoe
-    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/app.css')
-  body
-    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-      .container
-        .nabar-header
-          a.navbar-brand React Koa Gulp Mongoose Mocha Demo #{test}
-        .navbar-collapse.collapse
-          ul#navbarmenu.nav.navbar-nav.navbar-right
-            li
-              p.navbar-text
-                span.glyphicon.glyphicon-user
-                |  #{user.username}
-            li
-              a(href='/logout')
-                span.glyphicon.glyphicon-off
-                |  Log Out
+extends layout
+
+block content
+  
+  .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
     .container
-      #page-container
+      .nabar-header
+        a.navbar-brand React Koa Gulp Mongoose Mocha Demo #{test}
+      .navbar-collapse.collapse
+        ul#navbarmenu.nav.navbar-nav.navbar-right
+          li
+            p.navbar-text
+              span.glyphicon.glyphicon-user
+              |  #{user.username}
+          li
+            a(href='/logout')
+              span.glyphicon.glyphicon-off
+              |  Log Out
+  .container
+    #page-container
         
-    script(type='text/javascript', src='/app.js')
