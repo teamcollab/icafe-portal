@@ -30,6 +30,7 @@
     "bcrypt": "^0.8.0",
     "co": "3.1.x",
     "co-views": "0.2.x",
+    "jade": "^1.8.2",
     "koa": "0.13.x",
     "koa-bodyparser": "1.0.x",
     "koa-compress": "1.0.x",
@@ -64,7 +65,6 @@
     "should": "4.0.x",
     "supertest": "0.14.x",
     "gulp-compass": "^2.0.3"
-
   },
   "browserify": {
     "transform": [
