@@ -27,7 +27,7 @@ module.exports = function (app, config, passport) {
 
   app.use(function *(next) {
     this.render = views('src/views', {
-      map: { html: 'whiskers' },
+      default: 'jade'
     });
     yield next;
   });

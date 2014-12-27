@@ -11,6 +11,8 @@ var base = {
   }
 };
 
+var mongoHost = process.env.MONGO_PORT_27017_TCP_ADDR || "localdocker"
+
 var specific = {
   development: {
     app: {
@@ -19,7 +21,7 @@ var specific = {
       keys: ['super-secret-hurr-durr']
     },
     mongo: {
-      url: 'mongodb://localhost/koareactfullexample_dev',
+      url: 'mongodb://'+mongoHost+'/koareactfullexample_dev',
     }
   },
   test: {
@@ -29,7 +31,7 @@ var specific = {
       keys: ['super-secret-hurr-durr']
     },
     mongo: {
-      url: 'mongodb://localhost/koareactfullexample_test',
+      url: 'mongodb://'+mongoHost+'/koareactfullexample_test',
     }
   },
   production: {
@@ -38,7 +40,7 @@ var specific = {
       name: 'Koa React Gulp Mongoose Mocha'
     },
     mongo: {
-      url: 'mongodb://localhost/koareactfullexample',
+      url: 'mongodb://'+mongoHost+'/koareactfullexample',
     }
   }
 };
