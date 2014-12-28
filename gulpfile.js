@@ -47,8 +47,13 @@ gulp.task("copy-fonts", function () {
   .pipe(gulp.dest(paths.out.fonts));
 });
 
+gulp.task("copy-images", function () {
+  return gulp.src(paths.in.images)
+  .pipe(gulp.dest(paths.out.images));
+});
 
-gulp.task("app-bundle", ["jsx-compile", "copy-js", "copy-fonts"], function() {
+
+gulp.task("app-compile", ["jsx-compile", "copy-js", "copy-fonts", "copy-images"], function() {
   return browserify({
       entries: paths.in.app,
       debug: true,
@@ -57,23 +62,9 @@ gulp.task("app-bundle", ["jsx-compile", "copy-js", "copy-fonts"], function() {
     .transform(shim)
     .transform(envify)
     .bundle()
-    .pipe(source("bundle.js"))
+    .pipe(source("app.js"))
     .pipe(gulp.dest(paths.out.public));
 });
-
-
-gulp.task("app-compile", ["app-bundle"], function() {
-  paths.in.bower_js.push("public/bundle.js");
-
-  gulp.src(paths.in.bower_js)
-  .pipe(concat('app.js'))
-  .pipe(gulp.dest(paths.out.public));
-
-});
-
-// ==========
-// css / scss
-// ==========
 
 
 gulp.task('scss-compile', function () {
