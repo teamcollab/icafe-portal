@@ -8,11 +8,11 @@ module.exports = React.createClass({
     return (
       <div className="jumbotron">
         <div className="container">
-          <h1>React Koa Demo</h1>
+          <h1>icafe portal</h1>
           <div className="row">
             <div className="col-md-8">
               <p></p>
-              hello
+              coming soon!
             </div>
             <div className="col-md-4">
               <form role="form" action="/login" method="post" className="form">
