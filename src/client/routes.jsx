@@ -6,16 +6,16 @@ var reactNestedRouter = require('react-router');
 var Route = reactNestedRouter.Route;
 var Link = reactNestedRouter.Link;
 
-var IndexPage = require('./pages/index');
-var NullPage = require('./pages/null');
-var MainPage = require('./pages/main');
-var LoginPage = require('./pages/login');
+var index = require('./pages/index');
+var profile = require('./pages/profile');
+var main = require('./pages/main');
+var login = require('./pages/login');
 
 
 module.exports = (
-  <Route handler={MainPage}>
-    <Route name='login' path='/login' handler={LoginPage} />
-    <Route name='index' path='/' handler={IndexPage} />
-    <Route name='null-page' path='/null' handler={NullPage} />
+  <Route handler={main}>
+    <Route name='login' path='/login' handler={login} />
+    <Route name='profile' path='/profile' handler={profile} />
+    <Route name='index' path='/' handler={index} />
   </Route>
 );
