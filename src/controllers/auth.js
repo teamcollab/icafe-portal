@@ -1,11 +1,16 @@
 exports.login = function *() {
-  this.body = yield this.render('auth');
+  this.body = yield this.render('index');
 };
+
+exports.isLogin = function *() {
+  this.body = this.isAuthenticated();
+};
+
 
 exports.logout = function *() {
   this.logout();
   this.session = null;
-  this.redirect("/");
+  this.redirect("/#/login");
 };
 
 exports.createUser = function *() {
@@ -13,8 +18,8 @@ exports.createUser = function *() {
   try {
     var user = new User({ username: this.params.username, password: this.params.password });
     user = yield user.save();
-    this.redirect('/login?usercreated=1');
+    this.redirect('/#/login?usercreated=1');
   } catch (err) {
-    this.redirect('/login?usercreated=0');
+    this.redirect('/#/login?usercreated=0');
   }
 };

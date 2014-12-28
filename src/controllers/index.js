@@ -1,3 +1,5 @@
 exports.index = function *() {
-  this.body = yield this.render("index", { user: this.passport.user });
+  this.body = yield this.render("index", {
+    isLogin: this.isAuthenticated()
+  });
 };

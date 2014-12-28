@@ -3,7 +3,18 @@
 var React = require('react');
 var Counter = require('../components/counter');
 
+var Authentication = {
+  statics: {
+    willTransitionTo: function (transition) {
+      if (!isLogin) {
+        transition.redirect('/login');
+      }
+    }
+  }
+};
+
 module.exports = React.createClass({
+  mixins: [ Authentication ],
   render: function() {
     return (
       <div>

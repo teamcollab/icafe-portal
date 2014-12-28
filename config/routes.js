@@ -16,10 +16,11 @@ module.exports = function (app, passport) {
   // register functions
   app.use(router(app));
 
-  app.get('/login', authController.login);
+  app.get('/isLogin', authController.isLogin);
+
   app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login?error=local'
+    successRedirect: '/#/',
+    failureRedirect: '/#/login?error=local'
   }));
 
   app.all("/logout", authController.logout);
@@ -28,11 +29,7 @@ module.exports = function (app, passport) {
   app.get('/user/:username/:password', authController.createUser);
 
   app.get('/', function *() {
-    if (this.isAuthenticated()) {
-      yield indexController.index.apply(this);
-    } else {
-      this.redirect('/login');
-    }
+    yield indexController.index.apply(this);
   });
 
   // secured routes
