@@ -44,10 +44,10 @@ module.exports = React.createClass({
             </div>
           </div>
         </div>
-        <div className="container">
-          <div id="page-container">
-            <RouteHandler/>
-          </div>
+        <div className="container marketing">
+
+          <RouteHandler/>
+
         </div>
       </div>
     );
