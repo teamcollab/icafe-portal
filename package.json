@@ -65,7 +65,8 @@
     "mocha": "1.21.x",
     "should": "4.0.x",
     "supertest": "0.14.x",
-    "gulp-compass": "^2.0.3"
+    "gulp-compass": "^2.0.3",
+    "chai": "^1.10.0"
   },
   "browserify": {
     "transform": [
