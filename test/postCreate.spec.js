@@ -47,7 +47,7 @@ describe('Post', function() {
 
     });
 
-    it('show', function(done) {
+    it('json', function(done) {
       request.get('/post/'+testPost._id)
       .expect(200)
       .end(function(error, res) {
@@ -60,6 +60,20 @@ describe('Post', function() {
         done();
       });
     });
+    it('markdown', function(done) {
+      request.get('/post/'+testPost._id+"?format=md")
+      .expect(200)
+      .end(function(error, res) {
+        (error == null).should.be.true
+        var showPost = res.body
+        showPost.should.have.properties("title", "description", "content");
+        showPost.content.should.startWith('<h1 ');
+
+        done();
+      });
+    });
+
+
   });
 
   after(function(done) {
