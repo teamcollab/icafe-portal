@@ -70,7 +70,7 @@ gulp.task "install", [
   "scss-compile"
 ]
 gulp.task "watch", ->
-  gulp.watch paths.input.jsx, ["app-compile"]
+  gulp.watch paths.input.cjsx, ["app-compile"]
   gulp.watch paths.input.scss, ["scss-compile"]
   gulp.watch paths.toWatch, ["nodemon"]
   return

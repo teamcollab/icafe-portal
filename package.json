@@ -48,8 +48,11 @@
     "passport-local": "1.0.x",
     "react": "^0.12.2",
     "react-bootstrap": "^0.13.0",
+    "react-markdown-textarea": "^0.9.1",
     "react-router": "^0.11.6",
+    "react-tools": "^0.12.2",
     "superagent": "0.20.x",
+    "tcomb-form": "^0.3.0-rc2",
     "vinyl-source-stream": "1.0.x",
     "whiskers": "0.3.x"
   },

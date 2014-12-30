@@ -1,12 +1,8 @@
 
 'use strict';
 React = require('react');
-request = require('superagent');
+restHelper = require('./restHelper');
 
-get = (url, cb) ->
-  request.get(url)
-  .set('Content-Type', 'application/json')
-  .end(cb);
 
 
 module.exports = React.createClass({
@@ -14,19 +10,19 @@ module.exports = React.createClass({
     return { count : this.props.initialCount || 0 };
 
   componentWillMount: ->
-    get('/value', ((res) ->
+    restHelper.get('/value', ((res) ->
       this.setState({count: res.body.count});
     ).bind(this));
 
   onClickInc: (event) ->
     event.preventDefault();
-    get('/inc', ((res) ->
+    restHelper.get('/inc', ((res) ->
       this.setState({count: res.body.count});
     ).bind(this));
 
   onClickDec: (event) ->
     event.preventDefault();
-    get('/dec', ((res) ->
+    restHelper.get('/dec', ((res) ->
       this.setState({count: res.body.count});
     ).bind(this));
 

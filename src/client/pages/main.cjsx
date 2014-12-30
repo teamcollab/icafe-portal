@@ -12,23 +12,25 @@ module.exports = React.createClass({
   render: ->
 
     logButton = null
-    profileButton = null
-    user = null
+    index = <li><Link to='index'>Index</Link></li>
+
+    lis = []
+
+    lis.push(<li><Link to='index'>Index</Link></li>);
+
 
     if isLogin
       logButton = <li><a href="/logout"><span className="glyphicon glyphicon-off"></span> Log Out</a></li>
-      profileButton = <li><Link to='profile'>profile</Link></li>
-      user = <li><p className="navbar-text"><span className="glyphicon glyphicon-user">{username}</span></p></li>
+
+      lis.push(<li><p className="navbar-text"><span className="glyphicon glyphicon-user">{username}</span></p></li>);
+      lis.push(<li><Link to='profile'>profile</Link></li>);
+      lis.push(<li><Link to='post'>post</Link></li>);
+
 
     else
       logButton = <li><Link to='login'><span className="glyphicon glyphicon-off"></span> Log in</Link></li>
 
 
-    index = <li><Link to='index'>Index</Link></li>
-    lis = []
-    lis.push(index);
-    lis.push(user);
-    lis.push(profileButton);
     lis.push(logButton);
 
 
