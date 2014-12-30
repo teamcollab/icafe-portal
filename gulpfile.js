@@ -7,7 +7,7 @@ var nodemon = require("gulp-nodemon");
 var browserify = require("browserify");
 var concat = require("gulp-concat");
 var minifyCSS = require('gulp-minify-css');
-var react = require("gulp-react");
+var cjsx = require('gulp-cjsx');
 var sourcemaps = require("gulp-sourcemaps");
 var source = require("vinyl-source-stream");
 var envify = require("envify");
@@ -30,12 +30,14 @@ function handleStreamError (err) {
 /**
  * Sub-Tasks
  */
-gulp.task("jsx-compile", function () {
-  return gulp.src(paths.in.jsx)
-  .pipe(react())
+
+gulp.task("cjsx-compile", function () {
+  return gulp.src(paths.in.cjsx)
+  .pipe(cjsx({bare: true}))
   .on("error", handleStreamError)
   .pipe(gulp.dest(paths.out.build_js));
 });
+
 
 gulp.task("copy-js", function () {
   return gulp.src(paths.in.js)
@@ -53,7 +55,7 @@ gulp.task("copy-images", function () {
 });
 
 
-gulp.task("app-compile", ["jsx-compile", "copy-js", "copy-fonts", "copy-images"], function() {
+gulp.task("app-compile", ["cjsx-compile", "copy-js", "copy-fonts", "copy-images"], function() {
   return browserify({
       entries: paths.in.app,
       debug: true,

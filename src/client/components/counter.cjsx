@@ -1,36 +1,36 @@
-/** @jsx React.DOM */
-'use strict';
-var React = require('react');
-var request = require('superagent');
 
-var get = function (url, cb) {
+'use strict';
+React = require('react');
+request = require('superagent');
+
+get = (url, cb) ->
   request.get(url)
   .set('Content-Type', 'application/json')
   .end(cb);
-}
+
 
 module.exports = React.createClass({
-  getInitialState: function () {
+  getInitialState: ->
     return { count : this.props.initialCount || 0 };
-  },
-  componentWillMount: function () {
-    get('/value', function (res) {
+
+  componentWillMount: ->
+    get('/value', ((res) ->
       this.setState({count: res.body.count});
-    }.bind(this));
-  },
-  onClickInc: function (event) {
+    ).bind(this));
+
+  onClickInc: (event) ->
     event.preventDefault();
-    get('/inc', function (res) {
+    get('/inc', ((res) ->
       this.setState({count: res.body.count});
-    }.bind(this));
-  },
-  onClickDec: function (event) {
+    ).bind(this));
+
+  onClickDec: (event) ->
     event.preventDefault();
-    get('/dec', function (res) {
+    get('/dec', ((res) ->
       this.setState({count: res.body.count});
-    }.bind(this));
-  },
-  render: function () {
+    ).bind(this));
+
+  render: ->
     return (
       <div>
         <h3>Counter</h3>
@@ -41,6 +41,5 @@ module.exports = React.createClass({
         </div>
       </div>
     );
-  }
-});
 
+});

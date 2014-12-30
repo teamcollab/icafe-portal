@@ -1,7 +1,11 @@
+require('coffee-react/register');
+require("coffee-script/register");
+
 'use strict';
 /**
  * Dependencies
  */
+
 var fs = require('fs');
 var koa = require('koa');
 var mongoose = require('mongoose');

@@ -5,7 +5,7 @@ module.exports = {
   paths: {
     'in': {
       scss: root + '/src/client/scss/*.scss',
-      jsx: root + '/src/client/**/*.jsx',
+      cjsx: root + '/src/client/**/*.cjsx',
       js: root + '/src/client/**/*.js',
       app: root + '/build/app',
       fonts: root + '/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*',

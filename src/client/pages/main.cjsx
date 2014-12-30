@@ -1,31 +1,31 @@
-/** @jsx React.DOM */
+
 'use strict';
-var React = window.React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
-var RouteHandler = Router.RouteHandler;
+React = window.React = require('react');
+Router = require('react-router');
+Link = Router.Link;
+RouteHandler = Router.RouteHandler;
 
 
 module.exports = React.createClass({
 
 
-  render: function () {
+  render: ->
 
-    var logButton
-    var profileButton
-    var user
+    logButton = null
+    profileButton = null
+    user = null
 
-    if(isLogin){
+    if isLogin
       logButton = <li><a href="/logout"><span className="glyphicon glyphicon-off"></span> Log Out</a></li>
       profileButton = <li><Link to='profile'>profile</Link></li>
       user = <li><p className="navbar-text"><span className="glyphicon glyphicon-user">{username}</span></p></li>
-    }
-    else {
-      logButton = <li><Link to='login'><span className="glyphicon glyphicon-off"></span> Log in</Link></li>
-    }
 
-    var index = <li><Link to='index'>Index</Link></li>
-    var lis = []
+    else
+      logButton = <li><Link to='login'><span className="glyphicon glyphicon-off"></span> Log in</Link></li>
+
+
+    index = <li><Link to='index'>Index</Link></li>
+    lis = []
     lis.push(index);
     lis.push(user);
     lis.push(profileButton);
@@ -51,5 +51,5 @@ module.exports = React.createClass({
         </div>
       </div>
     );
-  }
+
 });
