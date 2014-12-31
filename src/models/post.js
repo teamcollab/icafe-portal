@@ -13,6 +13,7 @@ var PostSchema = new Schema({
   title: { type: String },
   description: { type: String },
   content: { type: String },
+  imagesrc: {type: String },
   updated: { type: Date, default: Date.now }
 });
 

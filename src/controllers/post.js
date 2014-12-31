@@ -12,7 +12,8 @@ exports.create = function *() {
     console.log("post._id = " + post._id + " created");
     this.body = post;
   } catch (error) {
-    console.log("error", error);
+    new Error(error)
+    console.log("post create error", error);
   }
 
 };
@@ -23,13 +24,12 @@ exports.show = function *() {
     var post = yield Post.findById(this.params.id).exec();
 
     if(this.request.query["format"] === "md"){
-
       post.content = marked(post.content.replace(/↵/g, "\n"));
 
     }
     this.body = post
   } catch (error) {
-    console.log("error", error);
+    console.log("post show error", error);
   }
 
 };

@@ -1,7 +1,7 @@
 
 React = require('react');
 t = require('tcomb-form');
-restHelper = require('../components/restHelper');
+restHelper = require('../../components/restHelper');
 
 Post = t.struct({
   title: t.Str,

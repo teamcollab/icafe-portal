@@ -15,6 +15,7 @@ describe('Post', function() {
     .send({
       title: "hello",
       description: "haha",
+      imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
       content: "# yoyo↵↵## YOYO"
     })
     .expect(200)
@@ -22,7 +23,7 @@ describe('Post', function() {
       (error == null).should.be.true
 
       var createPost = res.body
-      createPost.should.have.properties("title", "description", "content");
+      createPost.should.have.properties("title", "description", "content", "imagesrc");
 
       done();
     });
@@ -38,6 +39,7 @@ describe('Post', function() {
         var post = new Post({
           title: "hello",
           description: "haha",
+          imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
         });
         testPost = yield post.save()
@@ -53,7 +55,7 @@ describe('Post', function() {
       .end(function(error, res) {
         (error == null).should.be.true
         var showPost = res.body
-        showPost.should.have.properties("title", "description", "content");
+        showPost.should.have.properties("title", "description", "content", "imagesrc");
 
 
 
@@ -66,7 +68,7 @@ describe('Post', function() {
       .end(function(error, res) {
         (error == null).should.be.true
         var showPost = res.body
-        showPost.should.have.properties("title", "description", "content");
+        showPost.should.have.properties("title", "description", "content", "imagesrc");
         showPost.content.should.startWith('<h1 ');
 
         done();
