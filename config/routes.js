@@ -24,7 +24,7 @@ module.exports = function (app, passport) {
     failureRedirect: '/#/login?error=local'
   }));
 
-  app.post('/post', postController.create);
+
   app.get('/post/:id', postController.show);
 
   app.all("/logout", authController.logout);
@@ -32,11 +32,10 @@ module.exports = function (app, passport) {
   // Just to be able to create user to test our app
   app.get('/user/:username/:password', authController.createUser);
 
-  app.get('/', function *() {
-    yield indexController.index.apply(this);
-  });
+  app.get('/', indexController.index);
 
   // secured routes
+  app.post('/post', secured, postController.create);
   app.get('/value', secured, countController.getCount);
   app.get('/inc', secured, countController.increment);
   app.get('/dec', secured, countController.decrement);

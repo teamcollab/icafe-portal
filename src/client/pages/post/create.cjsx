@@ -1,7 +1,10 @@
 
 React = require('react');
 t = require('tcomb-form');
+Navigation = require('react-router').Navigation
+
 restHelper = require('../../components/restHelper');
+
 
 Post = t.struct({
   title: t.Str,
@@ -22,16 +25,18 @@ Form = t.form.create(Post, {
 });
 
 module.exports = React.createClass({
-  componentDidMount: () ->
+  mixins: [Navigation],
 
   onClick: ->
     value = this.refs.form.getValue()
 
-    console.log "value", value
+    self = @
 
     restHelper.post "/post", value, (res) ->
 
+      return self.transitionTo('/login') if res.unauthorized
 
+      self.transitionTo('/post/'+res.body._id);
 
   render: ->
     return (
