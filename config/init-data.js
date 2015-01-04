@@ -6,7 +6,6 @@ var Post = mongoose.model('Post');
 var co = require('co');
 
 module.exports = function (config) {
-  console.log("envvvv", config.app.env);
 
   co(function *() {
 
@@ -18,7 +17,6 @@ module.exports = function (config) {
       });
       console.log(yield post.save());
     }
-
 
   })();
 

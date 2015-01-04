@@ -23,6 +23,8 @@ envify = require("envify")
 shim = require("browserify-shim")
 compass = require("gulp-compass")
 config = require("./config/gulp")
+livereload = require('gulp-livereload');
+
 paths = config.paths
 nodemon_instance = undefined
 
@@ -50,7 +52,10 @@ gulp.task "app-compile", [
   browserify(
     entries: paths.input.app
     debug: true
-  ).require("react").transform(shim).transform(envify).bundle().pipe(source("app.js")).pipe gulp.dest(paths.output.public)
+  ).require("react").transform(shim).transform(envify).bundle()
+  .pipe(source("app.js"))
+  .pipe(gulp.dest(paths.output.public))
+  .pipe(livereload())
 
 gulp.task "scss-compile", ->
   gulp.src(["src/client/scss/app.scss"]).pipe(compass(
@@ -58,7 +63,9 @@ gulp.task "scss-compile", ->
     image: "src/client/img"
     css: "public"
     import_path: ["bower_components/bootstrap-sass-official/vendor/assets/stylesheets"]
-  )).pipe gulp.dest("public")
+  ))
+  .pipe(gulp.dest("public"))
+  .pipe(livereload())
   return
 
 gulp.task "watch-scss", ["compile-scss"], ->
@@ -70,6 +77,7 @@ gulp.task "install", [
   "scss-compile"
 ]
 gulp.task "watch", ->
+  livereload.listen();
   gulp.watch paths.input.cjsx, ["app-compile"]
   gulp.watch paths.input.scss, ["scss-compile"]
   gulp.watch paths.toWatch, ["nodemon"]
@@ -91,9 +99,7 @@ gulp.task "nodemon", ->
     )
   else
     nodemon_instance.emit "restart"
-  return
-
-
+    
 ###*
 Global tasks
 ###

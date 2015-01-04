@@ -71,6 +71,9 @@ describe('Post', function() {
         showPost.should.have.properties("title", "description", "content", "imagesrc");
         showPost.content.should.startWith('<h1 ');
 
+        showPost._id.should.be.equal(testPost._id.toString());
+
+
         done();
       });
     });
