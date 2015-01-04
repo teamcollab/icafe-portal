@@ -4,7 +4,7 @@ var responseTime = require('koa-response-time');
 var logger = require('koa-logger');
 var views = require('co-views');
 var compress = require('koa-compress');
-var errorHandler = require('koa-error');
+var onerror = require('koa-onerror');
 var bodyParser = require('koa-bodyparser');
 
 module.exports = function (app, config, passport) {
@@ -15,7 +15,8 @@ module.exports = function (app, config, passport) {
     app.use(logger());
 
 
-  app.use(errorHandler());
+
+  onerror(app);
   app.use(koaStatic(config.app.root + '/public'));
 
   app.use(session({
