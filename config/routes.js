@@ -26,6 +26,7 @@ module.exports = function (app, passport) {
 
 
   app.get('/post/:id', postController.show);
+  app.get('/post', postController.index);
 
   app.all("/logout", authController.logout);
 

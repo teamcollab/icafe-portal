@@ -2,8 +2,21 @@
 'use strict';
 React = require('react');
 carouselSets = require('../components/carouselSets');
+restHelper = require('../components/restHelper');
+Router = require('react-router');
+Link = Router.Link;
+
+
 
 module.exports = React.createClass({
+  getInitialState: () ->
+
+    self = @
+    restHelper.get "/post", (res) ->
+      self.setState {posts: res.body.posts}
+
+    return {posts: []}
+
 
   render: ->
 
@@ -11,30 +24,26 @@ module.exports = React.createClass({
       width: "140px",
       height: "140px"
     }
+
+    renderPost = (post) ->
+      return(
+        <div className="col-lg-4">
+          <img className="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style={imgStyle} />
+          <h2>{post.title}</h2>
+          <p>{post.derscription}</p>
+          <p><Link to='postShow' params={{postId: post._id}} className="btn btn-default" role="button">View details &raquo;</Link></p>
+        </div>
+      )
+
+
+
     return (
       <div >
         <div className="row">
           <carouselSets />
         </div>
         <div className="row">
-          <div className="col-lg-4">
-            <img className="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style={imgStyle} />
-            <h2>Heading</h2>
-            <p>AAA</p>
-            <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div className="col-lg-4">
-            <img className="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style={imgStyle} />
-            <h2>Heading</h2>
-            <p>BBB</p>
-            <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div className="col-lg-4">
-            <img className="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style={imgStyle} />
-            <h2>Heading</h2>
-            <p>CCC</p>
-            <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-          </div>
+          {this.state.posts.map(renderPost)}
         </div>
       </div>
     );
