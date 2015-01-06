@@ -12,6 +12,8 @@ Main = require('./pages/main');
 Login = require('./pages/login');
 PostCreate = require('./pages/post/create');
 PostShow = require('./pages/post/show');
+PostEdit = require('./pages/post/edit');
+
 
 
 module.exports = (
@@ -21,5 +23,6 @@ module.exports = (
     <Route name='index' path='/' handler={Index} />
     <Route name='postCreate' path='/post/create' handler={PostCreate} />
     <Route name='postShow' path='/post/:postId' handler={PostShow} />
+    <Route name='postEdit' path='/post/edit/:postId' handler={PostEdit} />
   </Route>
 );

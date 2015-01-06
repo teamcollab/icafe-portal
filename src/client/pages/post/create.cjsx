@@ -1,34 +1,16 @@
 
 React = require('react');
-t = require('tcomb-form');
+
 Navigation = require('react-router').Navigation
-
 restHelper = require('../../components/restHelper');
+PostForm =  require('./form');
 
-
-Post = t.struct({
-  title: t.Str,
-  description: t.maybe(t.Str),
-  content: t.Str
-});
-
-Form = t.form.create(Post, {
-  auto: 'labels',
-  fields: {
-    content: {
-      type: 'textarea'
-      config: {
-        height: "100vh"
-      }
-    }
-  }
-});
 
 module.exports = React.createClass({
   mixins: [Navigation],
 
-  onClick: ->
-    value = this.refs.form.getValue()
+  save: ->
+    value = this.refs.postForm.getValue()
 
     self = @
 
@@ -41,8 +23,8 @@ module.exports = React.createClass({
   render: ->
     return (
       <div>
-        <Form ref='form' />
-        <button onClick={this.onClick} className='btn btn-primary' >
+        <PostForm ref='postForm' />
+        <button onClick={this.save} className='btn btn-primary' >
           submit
         </button>
       </div>

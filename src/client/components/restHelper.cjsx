@@ -15,3 +15,10 @@ module.exports.post = (url, params, cb) ->
   .set('Accept', 'application/json')
   .set('Content-Type', 'application/json')
   .end(cb);
+
+module.exports.put = (url, params, cb) ->
+  request.put(url)
+  .send(params)
+  .set('Accept', 'application/json')
+  .set('Content-Type', 'application/json')
+  .end(cb);

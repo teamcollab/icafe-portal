@@ -1,9 +1,10 @@
 
 React = require('react');
 restHelper = require('../../components/restHelper');
-reactNestedRouter = require('react-router');
-State = reactNestedRouter.State;
 
+Router = require('react-router');
+Link = Router.Link;
+State = Router.State;
 
 module.exports = React.createClass({
   mixins: [State]
@@ -15,15 +16,29 @@ module.exports = React.createClass({
 
     restHelper.get "/post/"+id+"?format=md", (res) ->
       post = res.body
-      that.setState({body: post.content})
+      that.setState({post: post})
 
-    return {body: "loading"}
+    state =
+      post:
+        content: "loading"
+        _id: ""
+
+    return state
 
   render: ->
+    post = this.state.post
     return (
-      <div dangerouslySetInnerHTML={{
-        __html: this.state.body
-      }} />
+    
+      <div>
+        <Link to='postEdit' params={{postId: post._id}} className="btn btn-default" role="button">
+          edit
+        </Link>
+
+        <div dangerouslySetInnerHTML={{
+          __html: post.content
+        }} />
+
+      </div>
 
     );
 

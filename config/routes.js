@@ -36,6 +36,7 @@ module.exports = function (app, passport) {
   app.get('/', indexController.index);
 
   // secured routes
+  app.put('/post/:id', secured, postController.update);
   app.post('/post', secured, postController.create);
   app.get('/value', secured, countController.getCount);
   app.get('/inc', secured, countController.increment);

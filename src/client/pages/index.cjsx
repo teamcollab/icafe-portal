@@ -29,9 +29,14 @@ module.exports = React.createClass({
       return(
         <div className="col-lg-4">
           <img className="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style={imgStyle} />
+
           <h2>{post.title}</h2>
           <p>{post.derscription}</p>
-          <p><Link to='postShow' params={{postId: post._id}} className="btn btn-default" role="button">View details &raquo;</Link></p>
+          <p>
+            <Link to='postShow' params={{postId: post._id}} className="btn btn-default" role="button">
+              View details &raquo;
+            </Link>
+          </p>
         </div>
       )
 

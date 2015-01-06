@@ -54,6 +54,7 @@
     "react-tools": "^0.12.2",
     "superagent": "0.20.x",
     "tcomb-form": "^0.3.0-rc2",
+    "underscore": "^1.7.0",
     "vinyl-source-stream": "1.0.x",
     "whiskers": "0.3.x"
   },

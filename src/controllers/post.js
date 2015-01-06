@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var marked = require('marked');
+var _ = require('underscore');
 
 
 exports.index = function *() {
@@ -24,6 +25,18 @@ exports.create = function *() {
   this.body = newPost;
 
 };
+
+exports.update = function *() {
+
+  var post = yield Post.findById(this.params.id).exec();
+  var editedPost = this.request.body
+
+  post = _.extend(post, editedPost)
+
+  this.body = yield post.save()
+
+};
+
 
 exports.show = function *() {
 

@@ -49,6 +49,60 @@ describe('Post', function() {
     });
   });
 
+  describe('update', function() {
+
+    testPost = {}
+
+    before(function (done) {
+      authHelper.signAgent(request, done);
+
+      co(function *() {
+
+        var post = new Post({
+          title: "hello update",
+          description: "haha",
+          imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
+          content: "# yoyo↵↵## YOYO"
+        });
+        testPost = yield post.save()
+
+
+      })(done);
+
+
+    });
+
+
+    it('update success', function(done) {
+
+      request.put('/post/' + testPost._id)
+      .send({
+        title: "updated",
+        description: "updated",
+        imagesrc: "updated",
+        content: "updated"
+      })
+      .expect(200)
+      .end(function(error, res) {
+        console.log("error", error);
+
+        (error == null).should.be.true
+
+        var updatedPost = res.body
+        updatedPost.should.have.properties("title", "description", "content", "imagesrc");
+        updatedPost._id.should.be.equal(testPost._id.toString())
+        updatedPost.title.should.be.equal("updated")
+        updatedPost.description.should.be.equal("updated")
+        updatedPost.imagesrc.should.be.equal("updated")
+        updatedPost.content.should.be.equal("updated")
+
+        done();
+      });
+    });
+  });
+
+
+
   describe('show', function() {
 
     testPost = {}
