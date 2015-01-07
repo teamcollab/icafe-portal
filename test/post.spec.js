@@ -37,7 +37,6 @@ describe('Post', function() {
       })
       .expect(200)
       .end(function(error, res) {
-        console.log("error", error);
 
         (error == null).should.be.true
 
@@ -84,7 +83,6 @@ describe('Post', function() {
       })
       .expect(200)
       .end(function(error, res) {
-        console.log("error", error);
 
         (error == null).should.be.true
 
@@ -101,6 +99,47 @@ describe('Post', function() {
     });
   });
 
+
+  describe('delete', function() {
+
+    testPost = {}
+
+    before(function (done) {
+      authHelper.signAgent(request, done);
+
+      co(function *() {
+
+        var post = new Post({
+          title: "delete update",
+          description: "haha",
+          imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
+          content: "# yoyo↵↵## YOYO"
+        });
+        testPost = yield post.save()
+
+
+      })(done);
+
+
+    });
+
+
+    it('delete success', function(done) {
+
+      request.delete('/post/' + testPost._id)
+      .expect(200)
+      .end(function(error, res) {
+        (error == null).should.be.true
+
+        co(function *() {
+          deletedPost = yield Post.findById(testPost._id).exec();
+          (deletedPost == null).should.be.true
+
+        })(done);
+
+      });
+    });
+  });
 
 
   describe('show', function() {

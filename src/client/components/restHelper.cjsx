@@ -22,3 +22,9 @@ module.exports.put = (url, params, cb) ->
   .set('Accept', 'application/json')
   .set('Content-Type', 'application/json')
   .end(cb);
+
+module.exports.del = (url, cb) ->
+  request.del(url)
+  .set('Accept', 'application/json')
+  .set('Content-Type', 'application/json')
+  .end(cb);

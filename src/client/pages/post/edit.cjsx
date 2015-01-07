@@ -45,13 +45,29 @@ module.exports = React.createClass({
 
       self.transitionTo('/post/'+id);
 
+  delete: ->
+    id = this.getParams().postId
+    self = @
+    restHelper.del "/post/"+id, (res) ->
+
+      return self.transitionTo('/login') if res.unauthorized
+
+      self.transitionTo('/');
+
+
   render: ->
     return (
       <div>
         <PostForm ref='postForm' value={this.state.post} />
         <button onClick={this.save} className='btn btn-primary' >
-          submit
+          save
         </button>
+
+        <button onClick={this.delete} className='btn btn-primary' >
+          delete
+        </button>
+
+
       </div>
     );
 

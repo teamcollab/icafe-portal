@@ -28,7 +28,7 @@ module.exports = React.createClass({
   render: ->
     post = this.state.post
     return (
-    
+
       <div>
         <Link to='postEdit' params={{postId: post._id}} className="btn btn-default" role="button">
           edit

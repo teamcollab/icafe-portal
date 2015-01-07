@@ -38,6 +38,14 @@ exports.update = function *() {
 };
 
 
+exports.delete = function *() {
+
+  var post = yield Post.findById(this.params.id).exec();
+  this.body = yield post.remove()
+
+};
+
+
 exports.show = function *() {
 
   var post = yield Post.findById(this.params.id).exec();
