@@ -1,6 +1,6 @@
 
 'use strict';
-React = window.React = require('react');
+React = require('react');
 Router = require('react-router');
 Link = Router.Link;
 RouteHandler = Router.RouteHandler;
@@ -25,7 +25,7 @@ module.exports = React.createClass({
       lis.push(<li><p className="navbar-text"><span className="glyphicon glyphicon-user">{username}</span></p></li>);
       lis.push(<li><Link to='profile'>profile</Link></li>);
       lis.push(<li><Link to='postCreate'>post create</Link></li>);
-      
+
 
 
     else

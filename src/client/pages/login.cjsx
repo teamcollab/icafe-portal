@@ -1,5 +1,5 @@
 'use strict';
-React = window.React = require('react');
+React = require('react');
 
 module.exports = React.createClass({
 

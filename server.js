@@ -2,6 +2,9 @@ require('coffee-react/register');
 require("coffee-script/register");
 
 'use strict';
+
+
+
 /**
  * Dependencies
  */
@@ -11,6 +14,10 @@ var koa = require('koa');
 var mongoose = require('mongoose');
 var passport = require('koa-passport');
 
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
+
+console.log("appRoot", appRoot);
 /**
  * Config
  */

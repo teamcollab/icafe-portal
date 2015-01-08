@@ -4,6 +4,8 @@ var countController = require('../src/controllers/count');
 var indexController = require('../src/controllers/index');
 var authController = require('../src/controllers/auth');
 var postController = require('../src/controllers/post');
+var fileController = require('../src/controllers/file');
+
 
 var secured = function *(next) {
   if (this.isAuthenticated()) {
@@ -36,6 +38,7 @@ module.exports = function (app, passport) {
   app.get('/', indexController.index);
 
   // secured routes
+  app.post('/file', secured, fileController.save);
   app.delete('/post/:id', secured, postController.delete);
   app.put('/post/:id', secured, postController.update);
   app.post('/post', secured, postController.create);
