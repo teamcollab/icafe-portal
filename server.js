@@ -13,6 +13,9 @@ var fs = require('fs');
 var koa = require('koa');
 var mongoose = require('mongoose');
 var passport = require('koa-passport');
+var db = require('./db');
+var co = require('co');
+
 
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
@@ -57,8 +60,18 @@ require('./config/routes')(app, passport);
 require('./config/init-data')(config);
 
 // Start app
-if (!module.parent) {
- app.listen(config.app.port);
- console.log('Server started, listening on port: ' + config.app.port);
-}
+
+co(function *(){
+  var connection = yield db.sequelize.client.sync({ force: true });
+  if(connection){
+
+    if (!module.parent) {
+      app.listen(config.app.port);
+      console.log('Server started, listening on port: ' + config.app.port);
+    }
+
+  }
+})();
+
+
 console.log('Environment: ' + config.app.env);

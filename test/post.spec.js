@@ -6,8 +6,12 @@ request = require('supertest').agent(app.listen());
 databaseHelper = require('./middlewares/database');
 authHelper = require('./middlewares/authenticator');
 var mongoose = require('mongoose');
-var Post = mongoose.model('Post');
+// var Post = mongoose.model('Post');
 var co = require('co');
+
+var db = require(appRoot+'/db');
+var Post = db.sequelize.Post;
+
 
 describe('Post', function() {
 
@@ -53,28 +57,25 @@ describe('Post', function() {
     testPost = {}
 
     before(function (done) {
-      authHelper.signAgent(request, done);
-
-      co(function *() {
-
-        var post = new Post({
+      authHelper.signAgent(request, function(){
+        request.post('/post')
+        .send({
           title: "hello update",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
+        }).end(function(error, res){
+          testPost = res.body
+
+          done();
         });
-        testPost = yield post.save()
-
-
-      })(done);
-
+      });
 
     });
 
 
     it('update success', function(done) {
-
-      request.put('/post/' + testPost._id)
+      request.put('/post/' + testPost.id)
       .send({
         title: "updated",
         description: "updated",
@@ -83,12 +84,12 @@ describe('Post', function() {
       })
       .expect(200)
       .end(function(error, res) {
-
+        console.log("error", error);
         (error == null).should.be.true
 
         var updatedPost = res.body
         updatedPost.should.have.properties("title", "description", "content", "imagesrc");
-        updatedPost._id.should.be.equal(testPost._id.toString())
+        updatedPost.id.should.be.equal(testPost.id)
         updatedPost.title.should.be.equal("updated")
         updatedPost.description.should.be.equal("updated")
         updatedPost.imagesrc.should.be.equal("updated")
@@ -105,20 +106,19 @@ describe('Post', function() {
     testPost = {}
 
     before(function (done) {
-      authHelper.signAgent(request, done);
-
-      co(function *() {
-
-        var post = new Post({
-          title: "delete update",
+      authHelper.signAgent(request, function(){
+        request.post('/post')
+        .send({
+          title: "hello delete",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
+        }).end(function(error, res){
+          testPost = res.body
+
+          done();
         });
-        testPost = yield post.save()
-
-
-      })(done);
+      });
 
 
     });
@@ -126,16 +126,11 @@ describe('Post', function() {
 
     it('delete success', function(done) {
 
-      request.delete('/post/' + testPost._id)
+      request.delete('/post/' + testPost.id)
       .expect(200)
       .end(function(error, res) {
         (error == null).should.be.true
-
-        co(function *() {
-          deletedPost = yield Post.findById(testPost._id).exec();
-          (deletedPost == null).should.be.true
-
-        })(done);
+        done();
 
       });
     });
@@ -147,23 +142,22 @@ describe('Post', function() {
     testPost = {}
 
     before(function (done) {
-      co(function *() {
-
-        var post = new Post({
+      authHelper.signAgent(request, function(){
+        request.post('/post')
+        .send({
           title: "hello",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
+        }).end(function(error, res){
+          testPost = res.body
+
+          done();
         });
-        testPost = yield post.save()
-
-
-      })(done);
-
+      });
     });
-
     it('json', function(done) {
-      request.get('/post/'+testPost._id)
+      request.get('/post/'+testPost.id)
       .expect(200)
       .end(function(error, res) {
         (error == null).should.be.true
@@ -176,7 +170,7 @@ describe('Post', function() {
       });
     });
     it('markdown', function(done) {
-      request.get('/post/'+testPost._id+"?format=md")
+      request.get('/post/'+testPost.id+"?format=md")
       .expect(200)
       .end(function(error, res) {
         (error == null).should.be.true
@@ -184,7 +178,7 @@ describe('Post', function() {
         showPost.should.have.properties("title", "description", "content", "imagesrc");
         showPost.content.should.startWith('<h1 ');
 
-        showPost._id.should.be.equal(testPost._id.toString());
+        showPost.id.should.be.equal(testPost.id);
 
 
         done();
@@ -202,33 +196,26 @@ describe('Post', function() {
     before(function (done) {
       co(function *() {
 
-        var post1 = new Post({
+        yield Post.create({
           title: "data1",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
         });
 
-        yield post1.save()
-
-        var post2 = new Post({
+        yield Post.create({
           title: "data2",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
         });
 
-        yield post2.save()
-
-        var post3 = new Post({
+        yield Post.create({
           title: "data3",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
         });
-
-        yield post3.save()
-
 
       })(done);
 
