@@ -17,3 +17,12 @@ mongo:
     - "27017:27017"
   volumes:
     - "../database/mongo:/data"
+
+mysql:
+  image: mysql:latest
+  ports:
+    - "3306:3306"
+  volumes:
+    - "../database/mysql:/var/lib/mysql"
+  environment:
+    MYSQL_ROOT_PASSWORD: "root"

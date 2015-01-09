@@ -4,6 +4,7 @@ var Sequelize = require('sequelize');
 
 var config = require('../../config/config');
 var options = { // TODO -- pull from config
+    host: process.env.MYSQL_PORT_3306_TCP_ADDR || "localhost",
     dialect: "mysql",
     port:    3306
 };

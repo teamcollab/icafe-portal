@@ -8,7 +8,6 @@ base =
     root: path.normalize(__dirname + "/..")
     env: env
 
-mongoHost = process.env.MONGO_PORT_27017_TCP_ADDR or "localdocker"
 specific =
   development:
     app:
