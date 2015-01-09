@@ -3,10 +3,7 @@ var app, authHelper, co, databaseHelper, request, should;
 should = require('should');
 app = require('../server');
 request = require('supertest').agent(app.listen());
-databaseHelper = require('./middlewares/database');
 authHelper = require('./middlewares/authenticator');
-var mongoose = require('mongoose');
-var Post = mongoose.model('Post');
 var co = require('co');
 var config = require(appRoot+'/config/config');
 var fs = require('fs');
@@ -51,10 +48,4 @@ describe('Image', function() {
     });
   });
 
-
-
-
-  after(function(done) {
-    databaseHelper.dropDatabase(done);
-  });
 });

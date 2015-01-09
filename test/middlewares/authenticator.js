@@ -2,10 +2,6 @@
  * Dependencies
  */
 var should = require('should');
-var mongoose = require('mongoose');
-
-// var User = mongoose.model('User');
-
 var db = require(appRoot+'/db');
 var User = db.sequelize.User;
 

@@ -13,32 +13,38 @@ specific =
   development:
     app:
       port: 3000
-      name: "Koa React Gulp Mongoose Mocha - Dev"
+      name: "icafe - Dev"
       keys: ["super-secret-hurr-durr"]
       file:
         path: os.tmpdir()
 
-    mongo:
-      url: "mongodb://" + mongoHost + "/koareactfullexample_dev"
+    mysql:
+      dbname: 'blogs_db',
+      username: "root",
+      password: "mvagusta"
 
   test:
     app:
       port: 3001
-      name: "Koa React Gulp Mongoose Mocha - Test realm"
+      name: "icafe - Test realm"
       keys: ["super-secret-hurr-durr"]
       file:
         path: "#{base.app.root}/test/upload"
 
 
-    mongo:
-      url: "mongodb://" + mongoHost + "/koareactfullexample_test"
+    mysql:
+      dbname: 'blogs_db',
+      username: "root",
+      password: "mvagusta"
 
   production:
     app:
       port: process.env.PORT or 3000
-      name: "Koa React Gulp Mongoose Mocha"
+      name: "icafe"
 
-    mongo:
-      url: "mongodb://" + mongoHost + "/koareactfullexample"
+    mysql:
+      dbname: 'blogs_db',
+      username: "root",
+      password: "mvagusta"
 
 module.exports = _.merge(base, specific[env])

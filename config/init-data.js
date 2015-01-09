@@ -1,8 +1,8 @@
 
 
 
-var mongoose = require('mongoose');
-var Post = mongoose.model('Post');
+var db = require(appRoot+'/db');
+var Post = db.sequelize.Post;
 var co = require('co');
 
 module.exports = function (config) {
@@ -10,12 +10,12 @@ module.exports = function (config) {
   co(function *() {
 
     if(config.app.env === "development"){
-      var post = new Post({
+      var post = Post.build({
         title: "hello",
         description: "haha",
         content: "# yoyo↵↵## YOYO"
       });
-      console.log(yield post.save());
+      // console.log(yield post.save());
     }
 
   })();

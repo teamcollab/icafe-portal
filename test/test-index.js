@@ -4,7 +4,6 @@
 var should = require('should');
 var app = require('../server');
 var request = require('supertest').agent(app.listen());
-var databaseHelper = require('./middlewares/database');
 var authHelper = require('./middlewares/authenticator');
 
 
@@ -46,5 +45,4 @@ describe('Index', function () {
     });
   });
 
-  after(function (done) { databaseHelper.dropDatabase(done); });
 });

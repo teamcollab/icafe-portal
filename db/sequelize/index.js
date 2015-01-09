@@ -1,13 +1,17 @@
 var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
-var username = "root";
-var password = "mvagusta";
+
+var config = require('../../config/config');
 var options = { // TODO -- pull from config
     dialect: "mysql",
     port:    3306
 };
-var client = new Sequelize('blogs_db', username, password, options);
+
+var mysql = config.mysql
+
+console.log("mysql", mysql);
+var client = new Sequelize(mysql.dbname, mysql.username, mysql.password, options);
 var models = {};
 
 // read all models and import them into the "db" object

@@ -11,7 +11,6 @@ require("coffee-script/register");
 
 var fs = require('fs');
 var koa = require('koa');
-var mongoose = require('mongoose');
 var passport = require('koa-passport');
 var db = require('./db');
 var co = require('co');
@@ -26,23 +25,7 @@ console.log("appRoot", appRoot);
  */
 var config = require('./config/config');
 
-/**
- * Connect to database
- */
-mongoose.connect(config.mongo.url);
-mongoose.connection.on('error', function (err) {
-  console.log(err);
-});
 
-/**
- * Load the models
- */
-var models_path = config.app.root + '/src/models';
-fs.readdirSync(models_path).forEach(function (file) {
-  if (~file.indexOf('js')) {
-    require(models_path + '/' + file);
-  }
-});
 
 /**
  * Server
@@ -56,18 +39,20 @@ require('./config/koa')(app, config, passport);
 // Routes
 require('./config/routes')(app, passport);
 
-// test data
-require('./config/init-data')(config);
 
 // Start app
 
 var start = function(done) {
   co(function *(){
-    // var connection = yield db.sequelize.client.sync({ force: true });
-    var connection = yield db.sequelize.client.sync();
+    var connection = yield db.sequelize.client.sync({ force: true });
+    // var connection = yield db.sequelize.client.sync();
     if(connection){
 
       if (!module.parent) {
+        // test data
+        require('./config/init-data')(config);
+
+
         app.listen(config.app.port);
         console.log('Server started, listening on port: ' + config.app.port);
       }

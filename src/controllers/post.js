@@ -1,6 +1,3 @@
-//'use strict'; // cannot use 'use strict' with yield
-// var mongoose = require('mongoose');
-// var Post = mongoose.model('Post');
 var marked = require('marked');
 var _ = require('underscore');
 
