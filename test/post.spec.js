@@ -16,10 +16,15 @@ var Post = db.sequelize.Post;
 describe('Post', function() {
 
   before(function (done) {
-    co(function *() {
-      yield authHelper.createUser();
-      authHelper.signAgent(request, done);
-    })(done);
+
+    app.start(function(){
+      co(function *() {
+        yield authHelper.createUser();
+        authHelper.signAgent(request, done);
+      })(done);
+
+    })
+
   });
 
 
@@ -57,19 +62,18 @@ describe('Post', function() {
     testPost = {}
 
     before(function (done) {
-      authHelper.signAgent(request, function(){
-        request.post('/post')
-        .send({
-          title: "hello update",
+      authHelper.signAgent(request, done);
+
+      co(function *() {
+
+        testPost = yield Post.create({
+          title: "update test data",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
-        }).end(function(error, res){
-          testPost = res.body
-
-          done();
         });
-      });
+
+      })(done);
 
     });
 
@@ -106,20 +110,18 @@ describe('Post', function() {
     testPost = {}
 
     before(function (done) {
-      authHelper.signAgent(request, function(){
-        request.post('/post')
-        .send({
-          title: "hello delete",
+      authHelper.signAgent(request, done);
+
+      co(function *() {
+
+        testPost = yield Post.create({
+          title: "delete test data",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
-        }).end(function(error, res){
-          testPost = res.body
-
-          done();
         });
-      });
 
+      })(done);
 
     });
 
@@ -142,19 +144,19 @@ describe('Post', function() {
     testPost = {}
 
     before(function (done) {
-      authHelper.signAgent(request, function(){
-        request.post('/post')
-        .send({
-          title: "hello",
+      authHelper.signAgent(request, done);
+
+      co(function *() {
+
+        testPost = yield Post.create({
+          title: "show test data",
           description: "haha",
           imagesrc: "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
           content: "# yoyo↵↵## YOYO"
-        }).end(function(error, res){
-          testPost = res.body
-
-          done();
         });
-      });
+
+      })(done);
+
     });
     it('json', function(done) {
       request.get('/post/'+testPost.id)

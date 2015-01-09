@@ -1,5 +1,5 @@
 //'use strict'; // cannot use 'use strict' with yield
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 // var Post = mongoose.model('Post');
 var marked = require('marked');
 var _ = require('underscore');
@@ -24,7 +24,7 @@ exports.create = function *() {
 
   var newPost = yield Post.create(this.request.body);
 
-  console.log("post._id = " + newPost._id + " created");
+  console.log("post.id = " + newPost.id + " created");
   this.body = newPost;
 
 };
@@ -51,9 +51,14 @@ exports.delete = function *() {
 
 exports.show = function *() {
 
+  console.log("this.params.id", this.params.id);
+
   var post = yield Post.find(this.params.id);
 
+
+
   if(this.request.query["format"] === "md"){
+    console.log("post.content", post.content);
     post.content = marked(post.content.replace(/↵/g, "\n"));
 
   }

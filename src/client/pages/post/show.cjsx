@@ -21,7 +21,7 @@ module.exports = React.createClass({
     state =
       post:
         content: "loading"
-        _id: ""
+        id: ""
 
     return state
 
@@ -30,7 +30,7 @@ module.exports = React.createClass({
     return (
 
       <div>
-        <Link to='postEdit' params={{postId: post._id}} className="btn btn-default" role="button">
+        <Link to='postEdit' params={{postId: post.id}} className="btn btn-default" role="button">
           edit
         </Link>
 

@@ -4,7 +4,11 @@
 var should = require('should');
 var mongoose = require('mongoose');
 
-var User = mongoose.model('User');
+// var User = mongoose.model('User');
+
+var db = require(appRoot+'/db');
+var User = db.sequelize.User;
+
 
 /**
  * Constants
@@ -17,8 +21,12 @@ exports.LOGIN_URL = '/login';
  * Utils
  */
 exports.createUser = function *() {
-  var user = new User({ username: CREDENTIALS.u, password: CREDENTIALS.p });
+  var user = User.build({ username: CREDENTIALS.u, password: CREDENTIALS.p });
+
+
+  yield user.setToken();
   yield user.save();
+
 };
 
 exports.signAgent = function (agent, done) {

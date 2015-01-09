@@ -33,7 +33,7 @@ module.exports = React.createClass({
           <h2>{post.title}</h2>
           <p>{post.derscription}</p>
           <p>
-            <Link to='postShow' params={{postId: post._id}} className="btn btn-default" role="button">
+            <Link to='postShow' params={{postId: post.id}} className="btn btn-default" role="button">
               View details &raquo;
             </Link>
           </p>

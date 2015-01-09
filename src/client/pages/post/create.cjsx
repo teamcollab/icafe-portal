@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
       return self.transitionTo('/login') if res.unauthorized
 
-      self.transitionTo('/post/'+res.body._id);
+      self.transitionTo('/post/'+res.body.id);
 
   render: ->
     return (

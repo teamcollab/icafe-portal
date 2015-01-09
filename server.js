@@ -61,17 +61,23 @@ require('./config/init-data')(config);
 
 // Start app
 
-co(function *(){
-  var connection = yield db.sequelize.client.sync({ force: true });
-  if(connection){
+var start = function(done) {
+  co(function *(){
+    // var connection = yield db.sequelize.client.sync({ force: true });
+    var connection = yield db.sequelize.client.sync();
+    if(connection){
 
-    if (!module.parent) {
-      app.listen(config.app.port);
-      console.log('Server started, listening on port: ' + config.app.port);
+      if (!module.parent) {
+        app.listen(config.app.port);
+        console.log('Server started, listening on port: ' + config.app.port);
+      }
+
     }
+  })(done);
+}
 
-  }
-})();
-
-
+if (!module.parent) {
+  start()
+}
+module.exports.start = start
 console.log('Environment: ' + config.app.env);

@@ -1,3 +1,7 @@
+var db = require(appRoot+'/db');
+var User = db.sequelize.User;
+
+
 exports.login = function *() {
   this.body = yield this.render('index');
 };
@@ -14,12 +18,14 @@ exports.logout = function *() {
 };
 
 exports.createUser = function *() {
-  var User = require('mongoose').model('User');
+
   try {
-    var user = new User({ username: this.params.username, password: this.params.password });
+    var user = User.build({ username: this.params.username, password: this.params.password });
+    yield user.setToken();
     user = yield user.save();
     this.redirect('/#/login?usercreated=1');
   } catch (err) {
+    console.log("err", err);
     this.redirect('/#/login?usercreated=0');
   }
 };

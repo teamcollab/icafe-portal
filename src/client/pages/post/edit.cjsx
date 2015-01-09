@@ -29,7 +29,7 @@ module.exports = React.createClass({
     state =
       post:
         content: "loading"
-        _id: ""
+        id: ""
 
     return state
 

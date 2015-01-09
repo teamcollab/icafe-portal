@@ -1,6 +1,5 @@
 var router = require('koa-router');
 
-var countController = require('../src/controllers/count');
 var indexController = require('../src/controllers/index');
 var authController = require('../src/controllers/auth');
 var postController = require('../src/controllers/post');
@@ -42,7 +41,4 @@ module.exports = function (app, passport) {
   app.delete('/post/:id', secured, postController.delete);
   app.put('/post/:id', secured, postController.update);
   app.post('/post', secured, postController.create);
-  app.get('/value', secured, countController.getCount);
-  app.get('/inc', secured, countController.increment);
-  app.get('/dec', secured, countController.decrement);
 };
