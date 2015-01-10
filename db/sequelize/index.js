@@ -3,15 +3,15 @@ var path = require('path');
 var Sequelize = require('sequelize');
 
 var config = require('../../config/config');
+var mysql = config.mysql
+
 var options = { // TODO -- pull from config
     host: process.env.MYSQL_PORT_3306_TCP_ADDR || "localhost",
     dialect: "mysql",
-    port:    3306
+    port:    3306,
+    force: mysql.force
 };
 
-var mysql = config.mysql
-
-console.log("mysql", mysql);
 var client = new Sequelize(mysql.dbname, mysql.username, mysql.password, options);
 var models = {};
 

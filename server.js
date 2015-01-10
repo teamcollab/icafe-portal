@@ -44,7 +44,7 @@ require('./config/routes')(app, passport);
 
 var start = function(done) {
   co(function *(){
-    var connection = yield db.sequelize.client.sync({ force: true });
+    var connection = yield db.sequelize.client.sync();
     // var connection = yield db.sequelize.client.sync();
     if(connection){
 
