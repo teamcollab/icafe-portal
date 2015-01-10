@@ -19,6 +19,8 @@
   },
   "scripts": {
     "start": "gulp dev",
+    "install": "gulp install",
+    "prod": "NODE_ENV=production node --harmony server.js",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec ./test/test-*.js"
   },
   "author": "smlsunxie <smlsun@gmail.com>",
