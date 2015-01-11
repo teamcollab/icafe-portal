@@ -1,5 +1,6 @@
 var db = require(appRoot+'/db');
 var User = db.sequelize.User;
+var userService = require(appRoot+'/src/services/userService');
 
 
 exports.login = function *() {
@@ -20,12 +21,11 @@ exports.logout = function *() {
 exports.createUser = function *() {
 
   try {
-    var user = User.build({ username: this.params.username, password: this.params.password });
-    yield user.setToken();
-    user = yield user.save();
+    user = yield userService.create(this.params.username, this.params.password);
     this.redirect('/#/login?usercreated=1');
   } catch (err) {
     console.log("err", err);
     this.redirect('/#/login?usercreated=0');
   }
+
 };

@@ -48,15 +48,17 @@ exports.delete = function *() {
 
 exports.show = function *() {
 
-  console.log("this.params.id", this.params.id);
+
 
   var post = yield Post.find(this.params.id);
+
+  post.content = post.content.replace(/↵/g, "\n")
 
 
 
   if(this.request.query["format"] === "md"){
     console.log("post.content", post.content);
-    post.content = marked(post.content.replace(/↵/g, "\n"));
+    post.content = marked(post.content);
 
   }
   this.body = post
