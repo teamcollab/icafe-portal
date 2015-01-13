@@ -9,7 +9,7 @@ web:
     - "5858:5858"
 
   links:
-    - mongo
+    - mysql
 
 mongo:
   image: mongo:latest

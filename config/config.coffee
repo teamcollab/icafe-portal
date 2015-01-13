@@ -4,6 +4,8 @@ _ = require("lodash")
 os = require('os');
 console.log "process.env.NODE_ENV", process.env.NODE_ENV
 env = process.env.NODE_ENV = process.env.NODE_ENV or "development"
+password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || "root"
+
 base =
   app:
     root: path.normalize(__dirname + "/..")
@@ -19,9 +21,9 @@ specific =
         path: os.tmpdir()
 
     mysql:
-      dbname: 'blogs_db',
+      dbname: 'icafe_dev',
       username: "root",
-      password: "mvagusta"
+      password: password
       force: true
 
   test:
@@ -34,9 +36,9 @@ specific =
 
 
     mysql:
-      dbname: 'blogs_db',
+      dbname: 'icafe_test',
       username: "root",
-      password: "mvagusta"
+      password: password
       force: true
 
   production:
@@ -48,7 +50,7 @@ specific =
     mysql:
       dbname: 'icafe',
       username: "root",
-      password: process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || "root"
+      password: password
       force: false
 
 module.exports = _.merge(base, specific[env])
