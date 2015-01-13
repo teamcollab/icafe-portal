@@ -1,7 +1,6 @@
 
 'use strict';
 React = require('react');
-Counter = require('../components/counter');
 
 Authentication = {
   statics: {
@@ -15,8 +14,7 @@ module.exports = React.createClass({
   render: ->
     return (
       <div>
-        <h2>Index - Super Counter</h2>
-        <Counter />
+        <h2>Index</h2>
       </div>
     );
 
