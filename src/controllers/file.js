@@ -17,7 +17,7 @@ exports.save = function *(){
 
 
   while (part = yield parts) {
-    var stream = fs.createWriteStream(path.join(filePath, part.filename));
+    var stream = fs.createWriteStream(path.join(filePath+"/images", part.filename));
     part.pipe(stream);
 
     file.name = part.filename

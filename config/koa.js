@@ -19,6 +19,12 @@ module.exports = function (app, config, passport) {
   onerror(app);
   app.use(koaStatic(config.app.root + '/public'));
 
+
+  var filePath = config.app.file.path
+
+  app.use(koaStatic(filePath));
+
+
   app.use(session({
     key: 'koareactfullexample.sid',
   }));

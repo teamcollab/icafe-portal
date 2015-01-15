@@ -4,7 +4,7 @@ _ = require("lodash")
 os = require('os');
 console.log "process.env.NODE_ENV", process.env.NODE_ENV
 env = process.env.NODE_ENV = process.env.NODE_ENV or "development"
-password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || "root"
+password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || "mvagusta"
 
 base =
   app:

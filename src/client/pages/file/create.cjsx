@@ -2,25 +2,23 @@
 React = require('react');
 restHelper = require('../../components/restHelper');
 
-
 module.exports = React.createClass({
 
-  create: ->
-    value = this.refs.postForm.getValue()
 
-    self = @
+  handleSubmit: (e) ->
 
-    restHelper.post "/file", value, (res) ->
+    e.preventDefault();
 
-      return self.transitionTo('/login') if res.unauthorized
+    file = document.getElementsByName("file")[0].files[0];
 
-      self.transitionTo('/file/'+res.body.id);
+    restHelper.upload "/file", file, (error, res) ->
+      console.log "res.body", res.body
 
   render: ->
     return (
       <div>
 
-        <form action="/file" method="post" encType="multipart/form-data">
+        <form action="/file" onSubmit={this.handleSubmit} method="post" encType="multipart/form-data">
           <input type="file" name="file" multiple="" />
           <input type="submit" value="Upload" />
         </form>

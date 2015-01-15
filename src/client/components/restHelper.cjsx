@@ -28,3 +28,10 @@ module.exports.del = (url, cb) ->
   .set('Accept', 'application/json')
   .set('Content-Type', 'application/json')
   .end(cb);
+
+module.exports.upload = (url, file, cb) ->
+  console.log "file", file
+  request
+  .post('/file')
+  .attach('file', file, file.name)
+  .end(cb);

@@ -21,12 +21,15 @@ describe('Image', function() {
 
   describe('create', function() {
     before(function (done) {
-      authHelper.signAgent(request, done);
-      var filePath = config.app.file.path
+      authHelper.signAgent(request, function(){
+        var filePath = config.app.file.path
 
-      if (!fs.existsSync(filePath)){
-        fs.mkdirSync(filePath);
-      }
+        if (!fs.existsSync(filePath+"/images")){
+          fs.mkdirSync(filePath+"/images");
+        }
+        done();
+
+      });
 
     });
 
@@ -36,6 +39,7 @@ describe('Image', function() {
       .attach('file', './test/fixtures/testImage.png')
       .expect(200)
       .end(function(error, res) {
+        console.log('error', error);
         (error == null).should.be.true
 
         var file = res.body
@@ -47,5 +51,43 @@ describe('Image', function() {
       });
     });
   });
+
+  describe('show', function() {
+
+    var file = {}
+    before(function (done) {
+      authHelper.signAgent(request, function(){
+        var filePath = config.app.file.path
+
+        if (!fs.existsSync(filePath+"/images")){
+          fs.mkdirSync(filePath+"/images");
+        }
+
+        request.post('/file')
+        .attach('file', './test/fixtures/testImage.png')
+        .expect(200)
+        .end(function(error, res) {
+          file = res.body
+          done()
+        })
+
+      });
+
+
+    });
+
+
+    it('show success', function(done) {
+
+      request.get('/images/'+file.name)
+      .expect(200)
+      .end(function(error, res) {
+        console.log("error", error);
+        done()
+      })
+
+    });
+  });
+
 
 });
