@@ -13,7 +13,6 @@ describe('Image', function() {
   before(function (done) {
     co(function *() {
       yield authHelper.createUser();
-      authHelper.signAgent(request, done);
     })(done);
   });
 
@@ -52,7 +51,7 @@ describe('Image', function() {
     });
   });
 
-  describe('show', function() {
+  describe.only('show', function() {
 
     var file = {}
     before(function (done) {
@@ -82,7 +81,24 @@ describe('Image', function() {
       request.get('/images/'+file.name)
       .expect(200)
       .end(function(error, res) {
+        (error == null).should.be.true
+        done()
+      })
+
+    });
+
+    it('list file', function(done) {
+
+      request.get('/file')
+      .expect(200)
+      .end(function(error, res) {
         console.log("error", error);
+        (error == null).should.be.true
+
+        var files = res.body.files;
+        console.log("=== files ======", files);
+        (files.length > 0).should.be.true
+
         done()
       })
 

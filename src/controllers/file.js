@@ -30,3 +30,13 @@ exports.save = function *(){
 
   this.body = file;
 }
+
+exports.index = function *(){
+  var filePath = config.app.file.path + "images";
+  var files = yield fs.readdirSync(filePath);
+
+  this.body = {
+    files: files
+  }
+
+}

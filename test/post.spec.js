@@ -17,7 +17,6 @@ describe('Post', function() {
     app.start(function(){
       co(function *() {
         yield authHelper.createUser();
-        authHelper.signAgent(request, done);
       })(done);
 
     })

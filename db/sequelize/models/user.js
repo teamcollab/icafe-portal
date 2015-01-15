@@ -18,21 +18,15 @@ module.exports = function(sequelize, DataTypes) {
             return yield bcrypt.compare(candidatePassword, this.password);
           },
           passwordMatches: function *(password) {
-
             if (yield this.comparePassword(password)){
               return user;
             }
-            console.log("$$$$$$$$$$$");
             throw new Error('Password does not match');
           },
           setToken: function*() {
-
-
             var salt = yield bcrypt.genSalt();
             var hash = yield bcrypt.hash(this.password, salt);
             this.password = hash;
-
-            console.log("this.password", this.password);
           }
 
         }

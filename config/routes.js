@@ -29,6 +29,8 @@ module.exports = function (app, passport) {
   app.get('/post/:id', postController.show);
   app.get('/post', postController.index);
 
+  app.get('/file', fileController.index);
+
   app.all("/logout", authController.logout);
 
   // Just to be able to create user to test our app
@@ -37,7 +39,7 @@ module.exports = function (app, passport) {
   app.get('/', indexController.index);
 
   // secured routes
-  app.post('/file', secured, fileController.save);
+  app.post('/file', fileController.save);
   app.delete('/post/:id', secured, postController.delete);
   app.put('/post/:id', secured, postController.update);
   app.post('/post', secured, postController.create);

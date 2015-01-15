@@ -11,6 +11,7 @@ State = Router.State;
 
 PostForm =  require('./form');
 
+FileCreate =  require('../file/create');
 
 
 module.exports = React.createClass({
@@ -66,6 +67,8 @@ module.exports = React.createClass({
         <button onClick={this.delete} className='btn btn-primary' >
           delete
         </button>
+
+        <FileCreate />
 
 
       </div>

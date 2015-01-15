@@ -4,7 +4,7 @@ React = require('react');
 Navigation = require('react-router').Navigation
 restHelper = require('../../components/restHelper');
 PostForm =  require('./form');
-
+FileCreate =  require('../file/create');
 
 module.exports = React.createClass({
   mixins: [Navigation],
@@ -27,6 +27,7 @@ module.exports = React.createClass({
         <button onClick={this.save} className='btn btn-primary' >
           submit
         </button>
+        <FileCreate />
       </div>
     );
 
