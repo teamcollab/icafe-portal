@@ -24,6 +24,8 @@ shim = require("browserify-shim")
 compass = require("gulp-compass")
 config = require("./config/gulp")
 livereload = require('gulp-livereload');
+uglify = require('gulp-uglify');
+minify = require('gulp-minify-css')
 
 paths = config.paths
 nodemon_instance = undefined
@@ -54,6 +56,7 @@ gulp.task "app-compile", [
     debug: true
   ).require("react").transform(shim).transform(envify).bundle()
   .pipe(source("app.js"))
+
   .pipe(gulp.dest(paths.output.public))
   .pipe(livereload())
 
@@ -99,7 +102,18 @@ gulp.task "nodemon", ->
     )
   else
     nodemon_instance.emit "restart"
-    
+
+gulp.task 'mini-js', ["app-compile"], ->
+  gulp.src('./public/app.js')
+  .pipe(uglify())
+  .pipe(gulp.dest('./public'))
+
+gulp.task 'mini-css', ["scss-compile"], ->
+  gulp.src('./public/app.css')
+    .pipe(minify({keepBreaks:true}))
+    .pipe(gulp.dest('./public'))
+
+
 ###*
 Global tasks
 ###
@@ -107,5 +121,9 @@ gulp.task "dev", [
   "install"
   "watch"
   "nodemon"
+]
+gulp.task "prod-install", [
+  "mini-js"
+  "mini-css"
 ]
 gulp.task "default", ["install"]

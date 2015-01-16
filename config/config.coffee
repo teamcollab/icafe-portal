@@ -6,7 +6,7 @@ console.log "process.env.NODE_ENV", process.env.NODE_ENV
 env = process.env.NODE_ENV = process.env.NODE_ENV or "development"
 username = process.env.MYSQL_ENV_MYSQL_USER || "root"
 password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || ""
-filepath = process.env.UPLOAD_FILE_PATH || os.tmpdir()
+filepath = process.env.UPLOAD_FILE_PATH || "/Users/spooky/upload"
 
 base =
   app:
@@ -20,7 +20,7 @@ specific =
       name: "icafe - Dev"
       keys: ["super-secret-hurr-durr"]
       file:
-        path: os.tmpdir()
+        path: filepath
 
     mysql:
       dbname: 'icafe_dev',
@@ -49,7 +49,7 @@ specific =
       keys: ["super-secret-hurr-durr"]
       name: "icafe"
       file:
-        path: os.tmpdir()
+        path: filepath
 
     mysql:
       dbname: 'icafe_portal',
