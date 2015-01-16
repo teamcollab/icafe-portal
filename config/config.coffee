@@ -48,14 +48,15 @@ specific =
       port: process.env.PORT or 3000
       keys: ["super-secret-hurr-durr"]
       name: "icafe"
+      file:
+        path: os.tmpdir()
 
     mysql:
       dbname: 'icafe_portal',
       username: username,
       password: password
       force: false
-      file:
-        path: os.tmpdir()
+
 
 
 module.exports = _.merge(base, specific[env])
