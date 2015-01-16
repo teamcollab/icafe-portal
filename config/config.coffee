@@ -4,7 +4,8 @@ _ = require("lodash")
 os = require('os');
 console.log "process.env.NODE_ENV", process.env.NODE_ENV
 env = process.env.NODE_ENV = process.env.NODE_ENV or "development"
-password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || "mvagusta"
+username = process.env.MYSQL_ENV_MYSQL_USER || "root"
+password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || ""
 
 base =
   app:
@@ -22,7 +23,7 @@ specific =
 
     mysql:
       dbname: 'icafe_dev',
-      username: "root",
+      username: username,
       password: password
       force: true
 
@@ -37,7 +38,7 @@ specific =
 
     mysql:
       dbname: 'icafe_test',
-      username: "root",
+      username: username,
       password: password
       force: true
 
@@ -48,8 +49,8 @@ specific =
       name: "icafe"
 
     mysql:
-      dbname: 'icafe',
-      username: "root",
+      dbname: 'icafe_portal',
+      username: username,
       password: password
       force: false
 
