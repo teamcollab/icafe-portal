@@ -6,7 +6,7 @@ console.log "process.env.NODE_ENV", process.env.NODE_ENV
 env = process.env.NODE_ENV = process.env.NODE_ENV or "development"
 username = process.env.MYSQL_ENV_MYSQL_USER || "root"
 password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || ""
-filepath = process.env.UPLOAD_FILE_PATH || "/Users/spooky/upload"
+filepath = process.env.UPLOAD_FILE_PATH || "/Users/spooky/upload/"
 
 base =
   app:

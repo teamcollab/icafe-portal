@@ -12,6 +12,7 @@ State = Router.State;
 PostForm =  require('./form');
 
 FileCreate =  require('../file/create');
+FileList = require('../file/list');
 
 
 module.exports = React.createClass({
@@ -34,7 +35,7 @@ module.exports = React.createClass({
 
     return state
 
-  save: ->
+  update: ->
     id = this.getParams().postId
     value = this.refs.postForm.getValue()
 
@@ -55,20 +56,47 @@ module.exports = React.createClass({
 
       self.transitionTo('/');
 
+  setImagesrc: (selectFile) ->
+
+    value = this.refs.postForm.getValue()
+
+    this.setState({
+      post: {
+        imagesrc: selectFile
+        description: value.description
+        title: value.title
+        content: value.content
+      }
+    })
+
+
+
+  loadFileList: ()->
+    this.refs.fileList.load()
 
   render: ->
     return (
       <div>
         <PostForm ref='postForm' value={this.state.post} />
-        <button onClick={this.save} className='btn btn-primary' >
-          save
+        <button onClick={this.update} className='btn btn-primary' >
+          update
         </button>
 
         <button onClick={this.delete} className='btn btn-primary' >
           delete
         </button>
 
-        <FileCreate />
+        <hr />
+
+        <FileList ref="fileList" fileSelect={this.setImagesrc.bind(this)} />
+
+        <hr />
+
+        <FileCreate afterCreate={this.loadFileList.bind(this)} />
+
+
+
+
 
 
       </div>

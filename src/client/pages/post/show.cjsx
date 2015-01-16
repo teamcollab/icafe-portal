@@ -27,13 +27,16 @@ module.exports = React.createClass({
 
   render: ->
     post = this.state.post
+    editBtn = (
+      <Link to='postEdit' params={{postId: post.id}} className="btn btn-default" role="button">
+        edit
+      </Link>
+    )
+
     return (
 
       <div>
-        <Link to='postEdit' params={{postId: post.id}} className="btn btn-default" role="button">
-          edit
-        </Link>
-
+        {editBtn if isLogin}
         <div dangerouslySetInnerHTML={{
           __html: post.content
         }} />

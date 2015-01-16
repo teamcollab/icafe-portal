@@ -13,8 +13,7 @@ module.exports = React.createClass({
   getInitialState: ->
 
     return {
-      post:
-        imagesrc: "~~~"
+      post: {}
     }
 
   save: ->
@@ -54,8 +53,14 @@ module.exports = React.createClass({
         <button onClick={this.save} className='btn btn-primary' >
           submit
         </button>
-        <FileCreate afterCreate={this.loadFileList.bind(this)} />
+
+        <hr />
+
         <FileList ref="fileList" fileSelect={this.setImagesrc.bind(this)} />
+
+        <hr />
+
+        <FileCreate afterCreate={this.loadFileList.bind(this)} />
 
       </div>
     );

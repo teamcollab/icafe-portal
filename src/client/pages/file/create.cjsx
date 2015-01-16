@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
         <form action="/file" onSubmit={this.handleSubmit} method="post" encType="multipart/form-data">
           <input type="file" name="file" multiple="" />
-          <input type="submit" value="Upload" />
+          <input type="submit" value="Upload" className='btn btn-primary' />
         </form>
 
       </div>
