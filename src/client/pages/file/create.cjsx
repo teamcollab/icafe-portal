@@ -1,7 +1,6 @@
 
 React = require('react');
 restHelper = require('../../components/restHelper');
-FileList = require('./list');
 
 module.exports = React.createClass({
 
@@ -15,7 +14,10 @@ module.exports = React.createClass({
 
     restHelper.upload "/file", file, (error, res) ->
       console.log "res.body", res.body
-      self.refs.fileList.load()
+
+      self.props.afterCreate();
+
+
 
   render: ->
     return (
@@ -26,7 +28,6 @@ module.exports = React.createClass({
           <input type="submit" value="Upload" />
         </form>
 
-        <FileList ref="fileList" />
       </div>
     );
 

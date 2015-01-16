@@ -4,6 +4,7 @@ restHelper = require('../../components/restHelper');
 
 module.exports = React.createClass({
   getInitialState: ->
+    console.log "qq"
     this.load()
 
     return {
@@ -18,17 +19,29 @@ module.exports = React.createClass({
       files = res.body.files
       self.setState {files: files}
 
+  fileSelect:(file) ->
+    this.props.fileSelect file
+
 
 
   render: ->
-
+    self = @
 
     show = (file)->
+      fileSelect = self.fileSelect.bind self, "/images/#{file}"
+
 
       return (
         <tr>
-          <th scope="row"><a href="/images/#{file}">{file}</a></th>
-          <td>![{file}](/images/{file})</td>
+          <th scope="row">
+            <a onClick={fileSelect} >
+              {file}
+            </a>
+          </th>
+
+          <td>
+            ![{file}](/images/{file})
+          </td>
 
         </tr>
       )

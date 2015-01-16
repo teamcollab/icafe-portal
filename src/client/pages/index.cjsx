@@ -26,9 +26,11 @@ module.exports = React.createClass({
     }
 
     renderPost = (post) ->
+      imagesrc = post.imagesrc || "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+
       return(
         <div className="col-lg-4">
-          <img className="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style={imgStyle} />
+          <img className="img-circle" src="#{imagesrc}" alt="Generic placeholder image" style={imgStyle} />
 
           <h2>{post.title}</h2>
           <p>{post.derscription}</p>
