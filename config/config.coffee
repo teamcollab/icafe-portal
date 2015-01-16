@@ -6,6 +6,7 @@ console.log "process.env.NODE_ENV", process.env.NODE_ENV
 env = process.env.NODE_ENV = process.env.NODE_ENV or "development"
 username = process.env.MYSQL_ENV_MYSQL_USER || "root"
 password = process.env.MYSQL_ENV_MYSQL_ROOT_PASSWORD || ""
+filepath = process.env.UPLOAD_FILE_PATH || os.tmpdir()
 
 base =
   app:
@@ -53,5 +54,8 @@ specific =
       username: username,
       password: password
       force: false
+      file:
+        path: os.tmpdir()
+
 
 module.exports = _.merge(base, specific[env])
